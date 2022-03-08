@@ -60,9 +60,32 @@ pipeline {
       }
     }
 
+stage ('Upload Artifact to Artifactory') {
+          steps {
+            script { 
+                 def server = Artifactory.server 'artifactory-server'                 
+                 def uploadSpec = """{
+                    "files": [
+                      {
+                       "pattern": "php-todo.zip",
+                       "target": "todoapp/php-todo",
+                       "props": "type=zip;status=ready"
+
+                       }
+                    ]
+                 }""" 
+
+                 server.upload spec: uploadSpec
+               }
+            }
+
+        }
+
+
+
     stage('Deploy to Dev Environment') {
       steps {
-        build(job: 'ansible-project/main', parameters: [[$class: 'StringParameterValue', name: 'env', value: 'dev']], wait: true)
+        build(job: 'ansible-config-mgt/master', parameters: [[$class: 'StringParameterValue', name: 'env', value: 'dev']], wait: true)
       }
     }
 
