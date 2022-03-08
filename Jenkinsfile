@@ -71,7 +71,7 @@ pipeline {
                     "files": [
                       {
                        "pattern": "php-todo.zip",
-                       "target": "https://ghj.jfrog.io",
+                       "target": "https://ghj.jfrog.io/php-todo",
                        "props": "type=zip;status=ready"
 
                        }
