@@ -66,11 +66,8 @@ pipeline {
       }
     }
 
-    stage('Test') {
-      steps {
-        sh 'echo How are you'
-      }
-    }
+
+
 
   }
 }
