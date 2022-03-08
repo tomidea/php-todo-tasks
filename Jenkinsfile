@@ -68,7 +68,7 @@ stage ('Upload Artifact to Artifactory') {
                     "files": [
                       {
                        "pattern": "php-todo.zip",
-                       "target": "todoapp/php-todo",
+                       "target": "artifacts/php-todo",
                        "props": "type=zip;status=ready"
 
                        }
