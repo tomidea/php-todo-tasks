@@ -86,7 +86,7 @@ stage('SonarQube analysis') {
 
   
   steps{
-    sh "def scannerHome = tool 'SonarScanner'"
+    sh "def scannerHome = tool 'SonarQubeScanner'"
     withSonarQubeEnv('SonarQube') {
       sh "${scannerHome}/bin/sonar-scanner"
     }
