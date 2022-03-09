@@ -89,7 +89,7 @@ stage('SonarQube analysis') {
         }
       steps {
         withSonarQubeEnv(installationName: 'SonarQube') { 
-          sh "${scannerHome}/bin/sonar-scanner"
+         sh './mvnw clean org.sonarsource.scanner.maven:sonar-maven-plugin:4.7.0.2747:sonar'
         }
       }
     }
