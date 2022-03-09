@@ -54,6 +54,22 @@ pipeline {
       }
     }
 
+
+    stage('SonarQube Quality Gate') {
+            environment {
+                scannerHome = tool 'SonarQubeScanner'
+            }
+            steps {
+                withSonarQubeEnv('sonarqube') {
+                    sh "${scannerHome}/bin/sonar-scanner"
+                }
+    
+            }
+        }
+
+
+
+
     stage('Package Artifact') {
       steps {
         sh 'zip -qr php-todo.zip ${WORKSPACE}/*'
@@ -81,22 +97,6 @@ stage ('Upload Artifact to Artifactory') {
 
         }
 
-
-  stage('SonarQube Quality Gate') {
-      when { branch pattern: "^develop*|^hotfix*|^release*|^main*", comparator: "REGEXP"}
-        environment {
-            scannerHome = tool 'SonarQubeScanner'
-        }
-        steps {
-            withSonarQubeEnv('sonarqube') {
-              sh "sonar-scanner-engine-shaded-7.9.3-all.jar|66d831c5e90da3cf828661ea97547c6c"
-              //  sh "${scannerHome}/bin/sonar-scanner -X"
-            }
-            timeout(time: 1, unit: 'MINUTES') {
-                waitForQualityGate abortPipeline: true
-            }
-        }
-    }
 
 
 
