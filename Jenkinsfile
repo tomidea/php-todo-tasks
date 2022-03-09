@@ -86,9 +86,8 @@ stage('SonarQube analysis') {
 
   
   steps{
-    sh "def scannerHome = tool 'SonarQubeScanner'"
-    withSonarQubeEnv('SonarQube') {
-      sh "${scannerHome}/bin/sonar-scanner"
+    withSonarQubeEnv(installationName: 'SonarQube') {
+      sh './mvn clean org.sonarsource.maven:sonar-maven-plugin:3.9.0.2155:sonar'
     }
     }
   }
