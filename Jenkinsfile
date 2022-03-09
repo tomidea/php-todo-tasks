@@ -83,16 +83,10 @@ stage ('Upload Artifact to Artifactory') {
 
 
 
-    stage('SonarQube Quality Gate') {
-        environment {
-            scannerHome = tool 'SonarQubeScanner'
-        }
-        steps {
-             withSonarQubeEnv('SonarQubeScanner') {
-          sh '/var/lib/jenkins/tools/hudson.plugins.sonar.SonarRunnerInstallation/SonarQubeScanner/bin/sonar-scanner'
-        }
-      }
-    }
+    withSonarQubeEnv('SonarQubeScanner', envOnly: true) {
+  // This expands the evironment variables SONAR_CONFIG_NAME, SONAR_HOST_URL, SONAR_AUTH_TOKEN that can be used by any script.
+  println ${env.SONAR_HOST_URL} 
+}
 
 
 
