@@ -82,15 +82,15 @@ stage ('Upload Artifact to Artifactory') {
         }
 
 
-stage('SonarQube analysis') {
 
-  
-  steps{
-    withSonarQubeEnv(installationName: 'SonarQube') {
-      sh './mvn clean org.sonarsource.maven:sonar-maven-plugin:3.9.0.2155:sonar'
+stage('SonarQube analysis') {
+      steps {
+        withSonarQubeEnv(installationName: 'SonarQube') { 
+          sh 'mvn clean org.sonarsource.scanner.maven:sonar-maven-plugin:3.9.0.2155:sonar'
+        }
+      }
     }
-    }
-  }
+
 
 
 
