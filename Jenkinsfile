@@ -84,9 +84,12 @@ stage ('Upload Artifact to Artifactory') {
 
 
 stage('SonarQube analysis') {
+  environment {
+            scannerHome = tool 'SonarQubeScanner'
+        }
       steps {
         withSonarQubeEnv(installationName: 'SonarQube') { 
-          sh 'mvn clean org.sonarsource.scanner.maven:sonar-maven-plugin:3.9.0.2155:sonar'
+          sh "${scannerHome}/bin/sonar-scanner"
         }
       }
     }
