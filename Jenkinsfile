@@ -88,7 +88,7 @@ stage ('Upload Artifact to Artifactory') {
             scannerHome = tool 'SonarQubeScanner'
         }
         steps {
-             withSonarQubeEnv('SonarQubeServer') {
+             withSonarQubeEnv('SonarQubeScanner') {
           sh '/var/lib/jenkins/tools/hudson.plugins.sonar.SonarRunnerInstallation/SonarQubeScanner/bin/sonar-scanner'
         }
       }
