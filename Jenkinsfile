@@ -84,7 +84,7 @@ stage ('Upload Artifact to Artifactory') {
 
 stage('SonarQube analysis') {
 
-  def scannerHome = tool 'SonarScanner'
+  sh "def scannerHome = tool 'SonarScanner'"
   steps{
     withSonarQubeEnv('SonarQube') {
       sh "${scannerHome}/bin/sonar-scanner"
