@@ -85,10 +85,10 @@ stage ('Upload Artifact to Artifactory') {
 
     stage('SonarQube Quality Gate') {
         environment {
-            scannerHome = tool '/var/lib/jenkins/tools/hudson.plugins.sonar.SonarRunnerInstallation/SonarQubeScanner'
+            scannerHome = tool 'SonarQubeScanner'
         }
         steps {
-             withSonarQubeEnv(credentialsId: 'SonarQubeServer') {
+             withSonarQubeEnv('SonarQubeServer') {
           sh '/var/lib/jenkins/tools/hudson.plugins.sonar.SonarRunnerInstallation/SonarQubeScanner/bin/sonar-scanner'
         }
       }
@@ -102,10 +102,6 @@ stage ('Upload Artifact to Artifactory') {
         build(job: 'ansible-config-mgt/master', parameters: [[$class: 'StringParameterValue', name: 'env', value: 'dev']], wait: true)
       }
     }
-
-
-
-
 
 
 
