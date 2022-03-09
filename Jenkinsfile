@@ -89,7 +89,8 @@ stage ('Upload Artifact to Artifactory') {
         }
         steps {
             withSonarQubeEnv('sonarqube') {
-                sh "${scannerHome}/bin/sonar-scanner -X"
+              ssh "sonar-scanner-engine-shaded-7.9.3-all.jar|66d831c5e90da3cf828661ea97547c6c"
+              //  sh "${scannerHome}/bin/sonar-scanner -X"
             }
             timeout(time: 1, unit: 'MINUTES') {
                 waitForQualityGate abortPipeline: true
