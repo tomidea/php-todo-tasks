@@ -54,21 +54,17 @@ pipeline {
       }
     }
 
-
     stage('SonarQube Quality Gate') {
-            environment {
-                scannerHome = tool 'SonarQubeScan'
-            }
-            steps {
-                withSonarQubeEnv('sonarqube') {
-                    sh "${scannerHome}/bin/sonar-scanner"
-                }
-
-            }
+      environment {
+        scannerHome = 'SonarQubeScan'
+      }
+      steps {
+        withSonarQubeEnv('sonarqube') {
+          sh "${scannerHome}/bin/sonar-scanner -X"
         }
 
-
-
+      }
+    }
 
     stage('Package Artifact') {
       steps {
@@ -76,30 +72,26 @@ pipeline {
       }
     }
 
-stage ('Upload Artifact to Artifactory') {
-          steps {
-            script { 
-                 def server = Artifactory.server 'artifactory-server'                 
-                 def uploadSpec = """{
-                    "files": [
-                      {
-                       "pattern": "php-todo.zip",
-                       "target": "PBL/php-todo",
-                       "props": "type=zip;status=ready"
+    stage('Upload Artifact to Artifactory') {
+      steps {
+        script {
+          def server = Artifactory.server 'artifactory-server'
+          def uploadSpec = """{
+            "files": [
+              {
+                "pattern": "php-todo.zip",
+                "target": "PBL/php-todo",
+                "props": "type=zip;status=ready"
 
-                       }
-                    ]
-                 }""" 
+              }
+            ]
+          }"""
 
-                 server.upload spec: uploadSpec
-               }
-            }
-
+          server.upload spec: uploadSpec
         }
 
-
-
-
+      }
+    }
 
     stage('Deploy to Dev Environment') {
       steps {
@@ -107,11 +99,5 @@ stage ('Upload Artifact to Artifactory') {
       }
     }
 
-
-
   }
 }
-
-
-
-        
