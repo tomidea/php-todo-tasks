@@ -100,13 +100,13 @@ stage ('Upload Artifact to Artifactory') {
 
 
 
-agent built-in
+node('built-in') {
     stage('Deploy to Dev Environment') {
       steps {
         build(job: 'ansible-config-mgt/master', parameters: [[$class: 'StringParameterValue', name: 'env', value: 'dev']], wait: true)
       }
     }
-
+}
 
 
   }
