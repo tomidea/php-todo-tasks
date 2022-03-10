@@ -96,13 +96,10 @@ stage ('Upload Artifact to Artifactory') {
             }
 
         }
+        
+        }
 
-
-
-
-
-
-  }
+        
 agent built-in {
     stage('Deploy to Dev Environment') {
       steps {
