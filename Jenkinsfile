@@ -100,6 +100,9 @@ stage ('Upload Artifact to Artifactory') {
 
 
 
+
+
+  }
 node('built-in') {
     stage('Deploy to Dev Environment') {
       steps {
@@ -107,9 +110,6 @@ node('built-in') {
       }
     }
 }
-
-
-  }
 }
 
 
