@@ -1,17 +1,9 @@
-# Laravel Quickstart - Basic
+# How to run 
 
-## Quick Installation
+**Tested on Linux OS**
 
-    composer create-project laravel/laravel quickstart --prefer-dist
+Install Docker Compose and run the command below
 
-    git clone https://github.com/laravel/quickstart-basic quickstart
-
-    cd quickstart
-
-    composer install
-
-    php artisan migrate
-
-    php artisan serve --host localhost --port 8000
-
-[Complete Tutorial](https://laravel.com/docs/5.2/quickstart)
+```sh
+docker-compose -f docker-compose.yaml up
+```

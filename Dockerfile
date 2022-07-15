@@ -10,7 +10,7 @@ RUN apt-get update \
  && apachectl configtest \
  && service apache2 restart \
  && apt install -y wget git zip \
- && docker-php-ext-install pdo_mysql mysqli \
+ && docker-php-ext-install pdo_mysql pdo mysqli \
  && wget https://raw.githubusercontent.com/composer/getcomposer.org/76a7060ccb93902cd7576b67264ad91c8a2700e2/web/installer -O - -q | php -- --quiet \
  && mv composer.phar /usr/bin/composer \
  && composer install \

@@ -4,9 +4,8 @@ services:
 
   database:
     container_name: database
-    image: mysql:5.7.19 ## mysql:8.0.29-oracle #mysql:5.7
+    image: mysql:5.6
     restart: always
-    # command: --default-authentication-plugin=mysql_native_password
     environment:
       - MYSQL_USER=homestead
       - MYSQL_PASSWORD=sePret^i
@@ -23,12 +22,10 @@ services:
     depends_on:
       - database
     environment:
-      - DB_HOST=test
+      - DB_HOST=mysqldatabase
       - DB_DATABASE=homestead
       - DB_USERNAME=homestead
       - DB_PASSWORD=sePret^i
     ports:
       - 80:80
-    # env_file:
-    #   - .env.sample
     
