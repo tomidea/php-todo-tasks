@@ -8,10 +8,10 @@ services:
     restart: always
     environment:
       - MYSQL_USER=homestead
-      - MYSQL_PASSWORD=sePret^i
+      - MYSQL_PASSWORD=tomidea
       - MYSQL_DATABASE=homestead
-      - MYSQL_ROOT_PASSWORD=password
-    hostname: mysqldatabase
+      - MYSQL_ROOT_PASSWORD=babatomide
+    hostname: mysqlserverhost
     ports:
       - 3306:3306
   
@@ -22,10 +22,13 @@ services:
     depends_on:
       - database
     environment:
-      - DB_HOST=mysqldatabase
+      - DB_HOST=mysqlserverhost
       - DB_DATABASE=homestead
       - DB_USERNAME=homestead
-      - DB_PASSWORD=sePret^i
+      - DB_PASSWORD=tomidea
+      - APP_ENV=local
+      - APP_DEBUG=true
+      - APP_KEY=7GTl5BaI32DLmrH7lBuUkIDW5LMBB14y
     ports:
       - 80:80
     

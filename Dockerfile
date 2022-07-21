@@ -1,5 +1,5 @@
 FROM php:7.1-apache
-LABEL Creator="Gabriel Akinmoyero"
+LABEL Creator="tomidea"
 COPY . /home
 COPY config.conf /etc/apache2/sites-enabled
 WORKDIR /home
