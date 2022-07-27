@@ -3,7 +3,7 @@ pipeline{
 	agent any
 
 	environment {
-		DOCKERHUB_CREDENTIALS=credentials('tomidea')
+		DOCKERHUB_CREDENTIALS=credentials('dockerhub-tomidea')
 	}
 
 	stages {
