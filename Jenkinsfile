@@ -11,7 +11,7 @@ pipeline{
 		stage('Build') {
 
 			steps {
-				sh 'docker build -t tomidea/todo-app:'+env.BRANCH_NAME+'-0.0.1 .'
+				sh 'docker-compose -f docker-compose.yaml up'
 			}
 		}
 
@@ -25,7 +25,7 @@ pipeline{
 		stage('Push') {
 
 			steps {
-				sh 'docker push tomidea/todo-app:'+env.BRANCH_NAME+'-0.0.1'
+				sh 'docker push tomidea/php-todo-tasks_todo_app:latest
 			}
 		}
 	}
