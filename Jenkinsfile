@@ -31,7 +31,7 @@ pipeline{
 
 			steps {
 
-				sh 'docker push tomidea/docker-compose-pipeline_todo_app'
+				sh 'docker push tomidea/todo_app'
 
 			}
 		}
