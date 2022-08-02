@@ -18,6 +18,7 @@ services:
   todo_app:
     container_name: todo_app
     build: .
+    image: tomidea/todo_app:latest
     restart: always
     depends_on:
       - database
