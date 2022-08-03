@@ -16,4 +16,4 @@ RUN apt-get update \
  && composer install && service apache2 restart && php artisan migrate
 EXPOSE 80
 
-CMD [ "php", "artisan", "serve" ]
+# CMD [ "php", "artisan", "serve" ]
