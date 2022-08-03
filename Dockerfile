@@ -17,5 +17,4 @@ RUN apt-get update \
 
 EXPOSE 80
 
-RUN php artisan serve -q
-# CMD [ "php", "artisan", "serve" ]
+CMD [ "php", "artisan", "serve" ]
