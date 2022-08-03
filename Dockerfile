@@ -13,7 +13,9 @@ RUN apt-get update \
  && docker-php-ext-install pdo_mysql pdo mysqli \
  && wget https://raw.githubusercontent.com/composer/getcomposer.org/76a7060ccb93902cd7576b67264ad91c8a2700e2/web/installer -O - -q | php -- --quiet \
  && mv composer.phar /usr/bin/composer \
- && composer install && service apache2 restart && php artisan migrate && php artisan serve
+ && composer install && service apache2 restart && php artisan migrate 
+
 EXPOSE 80
 
+RUN php artisan serve -q
 # CMD [ "php", "artisan", "serve" ]
