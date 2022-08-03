@@ -1,8 +1,8 @@
 FROM php:7.1-apache
 LABEL Creator="tomidea"
-COPY . /home
+COPY . /var/www/html
 COPY config.conf /etc/apache2/sites-enabled
-WORKDIR /home
+WORKDIR /var/www/html
 RUN apt-get update \
  && rm /etc/apache2/sites-enabled/000-default.conf /etc/apache2/sites-available/000-default.conf \
  && echo "ServerName 127.0.0.1." >> /etc/apache2/apache2.conf \
