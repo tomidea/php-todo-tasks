@@ -17,4 +17,4 @@ RUN apt-get update \
 
 EXPOSE 80
 
-CMD [ "php", "artisan", "serve" ]
+#CMD [ "php", "artisan", "serve" ]
