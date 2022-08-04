@@ -18,4 +18,4 @@ RUN apt-get update \
 
 EXPOSE 80
 
-CMD [ "php", "artisan", "migrate" ]
+RUN php artisan migrate
