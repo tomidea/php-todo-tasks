@@ -44,6 +44,9 @@
         ],
         "post-update-cmd": [
             "php artisan optimize"
+        ],
+        "migrate-cmd": [
+            "php artisan migrate"
         ]
     },
     "config": {
