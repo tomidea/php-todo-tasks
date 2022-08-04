@@ -18,4 +18,4 @@ RUN apt-get update \
 
 EXPOSE 80
 
-ENTRYPOINT ["run.sh"]
+ENTRYPOINT ["./run.sh"]
