@@ -18,4 +18,4 @@ RUN apt-get update \
 
 EXPOSE 80
 
-CMD php artisan migrate --force
+ENTRYPOINT ["run.sh"]
