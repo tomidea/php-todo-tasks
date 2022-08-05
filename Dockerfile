@@ -14,10 +14,11 @@ RUN apt-get update \
  && wget https://raw.githubusercontent.com/composer/getcomposer.org/76a7060ccb93902cd7576b67264ad91c8a2700e2/web/installer -O - -q | php -- --quiet \
  && mv composer.phar /usr/bin/composer \
  && composer install \
- && chmod -R 777 ./bootstrap/cache/ && chmod -R 777 ./storage && chown -R www-data:www-data ./ && chmod 777 ./wait-for-it.sh
+ && chmod -R 777 ./bootstrap/cache/ && chmod -R 777 ./storage && chown -R www-data:www-data ./
 
 EXPOSE 80
 COPY run /usr/local/bin
-COPY ./wait-for-it.sh /usr/local/bin
+# COPY ./wait-for-it.sh /usr/local/bin
 
-CMD [ "wait-for-it.sh", "database:3306", "--", "run" ]
+RUN chmod +x ./wait-for-it.sh
+CMD [ "./wait-for-it.sh", "database:3306", "--", "run" ]
