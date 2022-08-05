@@ -21,7 +21,7 @@ services:
     image: tomidea/todo_app:latest
     restart: always
     depends_on:
-      - database
+      - db
     environment:
       - DB_HOST=mysqlserverhost
       - DB_DATABASE=homestead
