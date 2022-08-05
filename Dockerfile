@@ -15,7 +15,7 @@ RUN apt-get update \
  && mv composer.phar /usr/bin/composer \
  && composer install \
  && chmod -R 777 ./bootstrap/cache/ && chmod -R 777 ./storage && chown -R www-data:www-data ./ \
- && mkdir /var/mysql && ln -s /tmp/mysql.sock /var/mysql/mysql.sock
+ && cp .env.sample .env
 
 EXPOSE 80
 COPY run /usr/local/bin
