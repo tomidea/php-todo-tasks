@@ -18,7 +18,7 @@ RUN apt-get update \
 
 EXPOSE 80
 COPY run /usr/local/bin
-# COPY ./wait-for-it.sh /usr/local/bin
+COPY ./wait-for-it.sh /usr/local/bin
 
 RUN chmod +x ./wait-for-it.sh
-RUN ./wait-for-it.sh database:3306 -- ./run
+RUN wait-for-it.sh database:3306 -- cd /var/www/html && php artisan migrate --force
