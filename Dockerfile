@@ -1,4 +1,5 @@
 FROM php:7.1-apache
+FROM mysql
 LABEL Creator="tomidea"
 COPY . /var/www/html
 COPY config.conf /etc/apache2/sites-enabled
@@ -15,13 +16,15 @@ RUN apt-get update \
  && mv composer.phar /usr/bin/composer \
  && composer install \
  && chmod -R 777 ./bootstrap/cache/ && chmod -R 777 ./storage && chown -R www-data:www-data ./ \
- && cp .env.sample .env
+ && cp .env.sample .env \
+ && mysql -u root && create database db; && exit;
 
 EXPOSE 80
-COPY run /usr/local/bin
+# COPY run /usr/local/bin
 # COPY ./wait-for-it.sh /usr/local/bin
 
 RUN chmod +x ./wait-for-it.sh
+# CMD [ "executable" ]
 ENTRYPOINT [ "./wait-for-it.sh", "db:3306", "--", "php", "artisan", "migrate"]
 
 EXPOSE 80
