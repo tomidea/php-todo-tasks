@@ -17,5 +17,6 @@ RUN apt-get update \
  && chmod -R 777 ./bootstrap/cache/ && chmod -R 777 ./storage && chown -R www-data:www-data ./
 
 EXPOSE 80
+COPY run /usr/local/bin
 
-# ENTRYPOINT ["./run.sh"]
+CMD ["run"]
