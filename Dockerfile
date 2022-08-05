@@ -18,5 +18,6 @@ RUN apt-get update \
 
 EXPOSE 80
 COPY run /usr/local/bin
+COPY ./wait-for-it.sh /usr/local/bin
 
 CMD [ "wait-for-it.sh", "database:3306", "--", "run" ]
