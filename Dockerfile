@@ -3,6 +3,8 @@ FROM mysql
 LABEL Creator="tomidea"
 COPY . /var/www/html
 COPY config.conf /etc/apache2/sites-enabled
+ADD ./run_db ./init_db ./mydb_schema.sql /tmp/
+RUN /tmp/init_db
 WORKDIR /var/www/html
 RUN apt-get update \
  && rm /etc/apache2/sites-enabled/000-default.conf /etc/apache2/sites-available/000-default.conf \
@@ -23,8 +25,9 @@ EXPOSE 80
 # COPY run /usr/local/bin
 # COPY ./wait-for-it.sh /usr/local/bin
 
-RUN chmod +x ./wait-for-it.sh
-# CMD [ "executable" ]
-ENTRYPOINT [ "./wait-for-it.sh", "db:3306", "--", "php", "artisan", "migrate"]
+# RUN chmod +x ./wait-for-it.sh
 
-EXPOSE 80
+CMD ["/tmp/run_db"]
+
+RUN php artisan migrate
+
