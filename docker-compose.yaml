@@ -11,6 +11,8 @@ services:
       - MYSQL_PASSWORD=tomidea
       - MYSQL_DATABASE=homestead
       - MYSQL_ROOT_PASSWORD=babatomide
+    volumes:
+      - mysql-data:/var/lib/mysql
     hostname: mysqlserverhost
     ports:
       - 3306:3306
