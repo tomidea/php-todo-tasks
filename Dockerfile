@@ -22,4 +22,4 @@ COPY run /usr/local/bin
 # COPY ./wait-for-it.sh /usr/local/bin
 
 RUN chmod +x ./wait-for-it.sh
-RUN ./wait-for-it.sh db:3306 -t 0 -- php artisan migrate --force 
+ENTRYPOINT [ "./wait-for-it.sh", "db:", "--", "php", "artisan", "migrate", "--force " ] 
