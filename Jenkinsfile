@@ -28,6 +28,7 @@ pipeline{
 		stage('Test') {
 
 			steps {
+				script{
 					def response = httpRequest 'http://18.134.8.220/'
         			println("Status: "+response.status)
         			println("Content: "+response.content)
@@ -37,6 +38,7 @@ pipeline{
 						currentBuild.result = 'ABORTED'
     					error('Endpoint return non 200 code...')
 					} 
+				}
 
 				}	
 				
