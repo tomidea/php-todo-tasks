@@ -20,7 +20,7 @@ pipeline{
 
 			steps {
 
-				sh 'docker build -t tomidea/todo-app:5755 .'
+				sh 'docker build -t tomidea/todo-app:'+env.BRANCH_NAME+'-0.0.1 .' .'
 
 			}
 		}
