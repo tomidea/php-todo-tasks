@@ -28,8 +28,6 @@ pipeline{
 		stage('Test') {
 
 			steps {
-			 
-				sh '''
 					def response = httpRequest 'http://18.134.8.220/'
         			println("Status: "+response.status)
         			println("Content: "+response.content)
@@ -40,11 +38,9 @@ pipeline{
     					error('Endpoint return non 200 code...')
 					} 
 
-					'''
+				}	
 				
-				}
-				
-				}
+		}
 		
 
 		stage('Push') {
