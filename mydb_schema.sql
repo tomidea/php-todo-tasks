@@ -1,4 +1,4 @@
 mysql -u root
 CREATE DATABASE db;
-Use db;
+-- Use db;
 

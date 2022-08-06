@@ -1,10 +1,14 @@
+# FROM mysql
+# ADD ./run_db ./init_db ./mydb_schema.sql /tmp/
+# RUN chmod -R 777 /tmp/init_db
+# CMD ["chmod", "+x",  "/tmp/run_db"]
+
 FROM php:7.1-apache
-FROM mysql
+
 LABEL Creator="tomidea"
 COPY . /var/www/html
 COPY config.conf /etc/apache2/sites-enabled
-ADD ./run_db ./init_db ./mydb_schema.sql /tmp/
-RUN /tmp/init_db
+
 WORKDIR /var/www/html
 RUN apt-get update \
  && rm /etc/apache2/sites-enabled/000-default.conf /etc/apache2/sites-available/000-default.conf \
@@ -17,17 +21,19 @@ RUN apt-get update \
  && wget https://raw.githubusercontent.com/composer/getcomposer.org/76a7060ccb93902cd7576b67264ad91c8a2700e2/web/installer -O - -q | php -- --quiet \
  && mv composer.phar /usr/bin/composer \
  && composer install \
- && chmod -R 777 ./bootstrap/cache/ && chmod -R 777 ./storage && chown -R www-data:www-data ./ \
- && cp .env.sample .env \
- && mysql -u root && create database db; && exit;
+ && chmod -R 777 ./bootstrap/cache/ && chmod -R 777 ./storage && chown -R www-data:www-data ./ && cp .env.sample .env 
+ 
+
 
 EXPOSE 80
+
+# RUN sudo /tmp/init_db
 # COPY run /usr/local/bin
 # COPY ./wait-for-it.sh /usr/local/bin
 
 # RUN chmod +x ./wait-for-it.sh
 
-CMD ["/tmp/run_db"]
 
-RUN php artisan migrate
+
+# RUN php artisan migrate
 

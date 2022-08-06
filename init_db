@@ -1,5 +1,3 @@
-#!/bin/bash
-
 # Initialize MySQL database.
 # ADD this file into the container via Dockerfile.
 # Assuming you specify a VOLUME ["/var/lib/mysql"] or `-v /var/lib/mysql` on the `docker run` command…
