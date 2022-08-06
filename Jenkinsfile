@@ -20,7 +20,7 @@ pipeline{
 
 			steps {
 
-				sh 'docker-compose -f docker-compose.yaml up -d'
+				sh ''docker build -t tomidea/todo-app:'+env.BRANCH_NAME+'-0.0.1 .''
 
 			}
 		}
