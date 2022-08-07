@@ -47,3 +47,56 @@ Step 3: Connecting to the MySQL Docker Container
   * -d runs the container in detached mode
   * --network connects a container to a network
   * -h specifies a hostname
+    
+  4. Create a file and name it create_user.sql and add the below code in the file:
+
+             $ CREATE USER ''@'%' IDENTIFIED BY ''; GRANT ALL PRIVILEGES ON * . * TO ''@'%'; 
+   5. Run the script: $ docker exec -i mysql-server mysql -uroot -p$MYSQL_PW < create_user.sql 
+                                                                                              
+   6. Run the MySQL Client Container: $ docker exec -i mysql-server mysql -uroot -p$MYSQL_PW < create_user.sql   
+  *  --name gives the container a name
+  *  -it runs in interactive mode and Allocate a pseudo-TTY
+  *  --rm automatically removes the container when it exits
+  *  --network connects a container to a network
+  *  -h a MySQL flag specifying the MySQL server Container hostname
+  *  -u user created from the SQL script : admin username-for-user-created-from-the-SQL-script-create_user.sql
+  * -p password specified for the user created from the SQL script
+
+    ### Prepare database schema
+    
+ 1. Clone the Tooling-app repository from here
+       
+        $ git clone https://github.com/darey-devops/tooling.git 
+
+ 2. On your terminal, export the location of the SQL file
+        
+        $ export tooling_db_schema=/tooling_db_schema.sql 
+  
+ 3. Use the SQL script to create the database and prepare the schema. With the docker exec command, you can execute a command in a running container.
+      $ docker exec -i mysql-server mysql -uroot -p$MYSQL_PW < $tooling_db_schema 
+
+ 4. Update the .env file with connection details to the database
+
+            sudo vi .env
+
+            MYSQL_IP=mysqlserverhost
+            MYSQL_USER=username
+            MYSQL_PASS=client-secrete-password
+            MYSQL_DBNAME=toolingdb
+            
+                                                                                 
+            Flags used:
+            MYSQL_IP mysql ip address "leave as mysqlserverhost"
+            MYSQL_USER mysql username for user export as environment variable
+            MYSQL_PASS mysql password for the user exported as environment varaible
+            MYSQL_DBNAME mysql databse name "toolingdb"      
+   
+    5. Run the Tooling App
+            
+            $ docker build -t tooling:0.0.1 .
+                                                                                 
+    6. Run the container:
+            
+            $ docker run --network tooling_app_network -p 8085:80 -it tooling:0.0.1 
+                                                                                 
+      You can open the browser and type http://localhost:8085
