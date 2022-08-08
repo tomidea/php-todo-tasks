@@ -93,10 +93,31 @@ Step 3: Connecting to the MySQL Docker Container
    
     5. Run the Tooling App
             
-            $ docker build -t tooling:0.0.1 .
+            > $ docker build -t tooling:0.0.1 .
                                                                                  
     6. Run the container:
-            
+            '''
             $ docker run --network tooling_app_network -p 8085:80 -it tooling:0.0.1 
-                                                                                 
+                  '''                                                               
       You can open the browser and type http://localhost:8085
+                                                                                 
+ ### PRACTICE TASK
+Practice Task №1 – Implement a POC to migrate the PHP-Todo app into a containerized application.
+
+Part 1
+* Write a Dockerfile for the TODO app
+* Run both database and app on your laptop Docker Engine
+* Access the application from the browser                                                          
+
+    
+Part 2
+* Create an account in Docker Hub
+* Create a new Docker Hub repository
+* Push the docker images from your PC to the repository
+    
+ ### Practice Task №2 – Complete Continous Integration With A Test Stage
+
+* Update your Jenkinsfile with a test stage before pushing the image to the registry.
+* What you will be testing here is to ensure that the tooling site http endpoint is able to return status code 200. Any other code will be determined a stage failure.
+* Implement a similar pipeline for the PHP-todo app.
+Ensure that both pipelines have a clean-up stage where all the images are deleted on the Jenkins server.   
