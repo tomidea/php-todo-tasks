@@ -124,45 +124,7 @@ Part 2
 * Create a new Docker Hub repository
 * Push the docker images from your PC to the repository
    <img width="1339" alt="Screenshot 2022-08-09 at 12 26 48" src="https://user-images.githubusercontent.com/51254648/183636363-8a30c0aa-0082-4e56-b7ab-ecf68d1556c2.png">
- 
-   
-                pipeline{
-                agent any
-                environment {   
-                    DOCKERHUB_CREDENTIALS=credentials('dockerhub_id'
-                             }
-                stages {
-                    stage('Build') {
 
-                        steps {
-
-                            sh 'docker build -t tomidea/todo-app:'+env.BRANCH_NAME+'-0.0.1 .'
-                        }
-                    }
-
-                    stage('Login') {
-
-                        steps {
-                            sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
-                        }
-                    }
-
-                    stage('Push') {
-
-                        steps {
-
-                            sh 'docker push tomidea/todo-app:'+env.BRANCH_NAME+'-0.0.1'
-
-                        }
-                    }
-                }
-                post {
-                    always {
-                        sh 'docker logout'
-                    }
-                }
-            }
-       
     
 Part 3
 
@@ -184,6 +146,62 @@ Part 3
  ### Practice Task №2 – Complete Continous Integration With A Test Stage
 
 * Update your Jenkinsfile with a test stage before pushing the image to the registry.
+    
+                pipeline{
+                agent any
+                environment {
+                    DOCKERHUB_CREDENTIALS=credentials('dockerhub_id')
+                }
+
+                stages {
+                    stage('Login') {
+
+                        steps {
+                            sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+                        }
+                    }
+                    stage('Build') {
+
+                        steps {
+                            sh 'docker build -t tomidea/todo-app:'+env.BRANCH_NAME+'-0.0.1 .' .'
+                        }
+                    }
+                    stage('Test') {
+                        steps {
+                            script{
+                                def response = httpRequest 'http://18.134.8.220/'
+                                println("Status: "+response.status)
+
+                                if(response.status != 200)
+                                {
+                                    currentBuild.result = 'ABORTED'
+                                    error('Endpoint return non 200 code...')
+                                } 
+                                println("Message: Test GET http://18.134.8.220/ passed")
+                            }
+
+                            }	
+
+                    }
+                    stage('Push') {
+
+                        steps {
+
+                            sh 'docker push tomidea/todo_app'
+
+                        }
+                    }
+                }
+
+                post {
+                    always {
+                        sh 'docker logout'
+                        sh 'docker system prune --all'
+                    }
+                }
+
+            }
+
 * What you will be testing here is to ensure that the PHP-todo site http endpoint is able to return status code 200. Any other code will be determined a stage failure.
     
     <img width="951" alt="pass test" src="https://user-images.githubusercontent.com/51254648/183631910-80a5b952-03f7-4bb8-a4c0-d08a7d46a430.png">
