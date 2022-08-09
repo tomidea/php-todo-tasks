@@ -1,3 +1,4 @@
+
 # MIGRATION TO THE СLOUD WITH CONTAINERIZATION. PART 1 – DOCKER & DOCKER COMPOSE
 
 ## migrate the Tooling Web Application from a VM-based solution into a containerized one
@@ -99,7 +100,13 @@ Step 3: Connecting to the MySQL Docker Container
             '''
             $ docker run --network tooling_app_network -p 8085:80 -it tooling:0.0.1 
                   '''                                                               
-      You can open the browser and type http://localhost:8085
+        
+    <img width="940" alt="Screenshot 2022-07-09 at 16 33 38" src="https://user-images.githubusercontent.com/51254648/183627129-169df1c9-677f-493d-a9d2-90858690200a.png">
+    
+    You can open the browser and type http://localhost:8085
+    
+    <img width="1280" alt="Screenshot 2022-07-09 at 17 18 35" src="https://user-images.githubusercontent.com/51254648/183627986-21f553cd-1e01-4347-8aea-e318b1c928b0.png">
+
                                                                                  
  ### PRACTICE TASK
 Practice Task №1 – Implement a POC to migrate the PHP-Todo app into a containerized application.
@@ -109,15 +116,41 @@ Part 1
 * Run both database and app on your laptop Docker Engine
 * Access the application from the browser                                                          
 
+    <img width="1270" alt="Screenshot 2022-07-20 at 17 12 43" src="https://user-images.githubusercontent.com/51254648/183628353-b1dd3b4d-3004-4699-b4dc-673ab4f71223.png">
+
     
 Part 2
 * Create an account in Docker Hub
 * Create a new Docker Hub repository
 * Push the docker images from your PC to the repository
+ 
+Part 3
+
+* Write a Jenkinsfile that will simulate a Docker Build and a Docker Push to the registry
+* Connect your repo to Jenkins
+* Create a multi-branch pipeline
+    <img width="1080" alt="jenkins maindev" src="https://user-images.githubusercontent.com/51254648/183631797-b54955cd-21ee-41d2-a024-f65e1b259791.png">
+
+* Simulate a CI pipeline from a feature and master branch using previously created Jenkinsfile
+* Ensure that the tagged images from your Jenkinsfile have a prefix that suggests which branch the image was pushed from. For example, feature-0.0.1.
+   
+    <img width="254" alt="vscode mandev img" src="https://user-images.githubusercontent.com/51254648/183629293-bc5d86b3-9346-4643-9878-5602a23e727b.png">
+
+
+* Verify that the images pushed from the CI can be found at the registry.
+    <img width="1308" alt="dockerhub maindev" src="https://user-images.githubusercontent.com/51254648/183629043-065513a5-5497-43ba-adc3-fecaedbf579f.png">
+
     
  ### Practice Task №2 – Complete Continous Integration With A Test Stage
 
 * Update your Jenkinsfile with a test stage before pushing the image to the registry.
-* What you will be testing here is to ensure that the tooling site http endpoint is able to return status code 200. Any other code will be determined a stage failure.
-* Implement a similar pipeline for the PHP-todo app.
-Ensure that both pipelines have a clean-up stage where all the images are deleted on the Jenkins server.   
+* What you will be testing here is to ensure that the PHP-todo site http endpoint is able to return status code 200. Any other code will be determined a stage failure.
+    
+    <img width="951" alt="pass test" src="https://user-images.githubusercontent.com/51254648/183631910-80a5b952-03f7-4bb8-a4c0-d08a7d46a430.png">
+    
+    
+    
+    <img width="873" alt="failed test" src="https://user-images.githubusercontent.com/51254648/183632045-92adad14-e3e9-4fcc-a32d-b2d05c9d1815.png">
+
+    
+    
