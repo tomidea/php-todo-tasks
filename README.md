@@ -1,6 +1,6 @@
 # project 20
 
-check **project steps file** for **project_steps.md**
+check **project_steps.md** for project documentation
 
 # How to run 
 
