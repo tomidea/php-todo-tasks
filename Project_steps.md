@@ -123,7 +123,47 @@ Part 2
 * Create an account in Docker Hub
 * Create a new Docker Hub repository
 * Push the docker images from your PC to the repository
+   <img width="1339" alt="Screenshot 2022-08-09 at 12 26 48" src="https://user-images.githubusercontent.com/51254648/183636363-8a30c0aa-0082-4e56-b7ab-ecf68d1556c2.png">
  
+   
+                pipeline{
+                agent any
+                environment {   
+                    DOCKERHUB_CREDENTIALS=credentials('dockerhub_id'
+                             }
+                stages {
+                    stage('Build') {
+
+                        steps {
+
+                            sh 'docker build -t tomidea/todo-app:'+env.BRANCH_NAME+'-0.0.1 .'
+                        }
+                    }
+
+                    stage('Login') {
+
+                        steps {
+                            sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+                        }
+                    }
+
+                    stage('Push') {
+
+                        steps {
+
+                            sh 'docker push tomidea/todo-app:'+env.BRANCH_NAME+'-0.0.1'
+
+                        }
+                    }
+                }
+                post {
+                    always {
+                        sh 'docker logout'
+                    }
+                }
+            }
+       
+    
 Part 3
 
 * Write a Jenkinsfile that will simulate a Docker Build and a Docker Push to the registry
