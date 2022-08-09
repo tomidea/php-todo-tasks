@@ -1,32 +1,23 @@
 pipeline{
-
 	agent any
-
 	environment {
 		DOCKERHUB_CREDENTIALS=credentials('dockerhub_id')
 	}
 
 	stages {
-
 		stage('Login') {
 
 			steps {
 				sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
 			}
 		}
-
-
 		stage('Build') {
 
 			steps {
-
 				sh 'docker build -t tomidea/todo-app:'+env.BRANCH_NAME+'-0.0.1 .' .'
-
 			}
 		}
-
 		stage('Test') {
-
 			steps {
 				script{
 					def response = httpRequest 'http://18.134.8.220/'
@@ -43,8 +34,6 @@ pipeline{
 				}	
 				
 		}
-		
-
 		stage('Push') {
 
 			steps {
